@@ -8,6 +8,7 @@ A simple BepInEx/Harmony patch for Stationeers dedicated servers that currently 
 ## What This Does
 
 This is a **server-side only** mod. Clients don't need BepInEx, any mods, or special configuration — the server remains fully "vanilla" compatible for all players.
+Log output is slightly verbose, but I figured it's best to know and see each step.
 
 ## The Problem
 
