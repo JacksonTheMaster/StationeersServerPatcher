@@ -2,6 +2,7 @@ using BepInEx;
 using HarmonyLib;
 using System;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -287,6 +288,7 @@ namespace StationeersServerPatcher
             {
                 // Small delay to ensure server is fully initialized
                 await Task.Delay(500);
+                await UniTask.SwitchToMainThread(default);
 
                 if (!ServerPauseHelper.IsAutoPauseEnabled)
                 {
