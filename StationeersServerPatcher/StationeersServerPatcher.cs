@@ -479,4 +479,44 @@ namespace StationeersServerPatcher
             }
         }
     }
+
+    /// <summary>
+    /// Patch to block SpawnDynamicThingMaxStackMessage.Process unless in Creative mode
+    /// </summary>
+    [HarmonyPatch]
+    public static class SpawnDynamicThingMaxStackMessagePatch
+    {
+        [HarmonyTargetMethod]
+        public static MethodBase TargetMethod()
+        {
+            var type = AccessTools.TypeByName("SpawnDynamicThingMaxStackMessage");
+            if (type == null)
+            {
+                StationeersServerPatcher.LogError("Could not find SpawnDynamicThingMaxStackMessage type.");
+                return null;
+            }
+
+            var method = AccessTools.Method(type, "Process");
+            if (method == null)
+            {
+                StationeersServerPatcher.LogError("Could not find Process method.");
+                return null;
+            }
+
+            StationeersServerPatcher.LogInfo("Found Process method for patching.");
+            return method;
+        }
+
+        [HarmonyPrefix]
+        public static bool Prefix(long hostId)
+        {
+            // Only allow in Creative mode
+            if (WorldManager.Instance.GameMode != GameMode.Creative)
+            {
+                StationeersServerPatcher.LogError("Spawn blocked: not in Creative mode");
+                return false; // Skip original method
+            }
+            return true; // Allow original to run
+        }
+    }
 }
