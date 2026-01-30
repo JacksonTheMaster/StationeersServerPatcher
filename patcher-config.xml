@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PatcherConfig>
+  <Message>StationeersServerPatcher remote configuration</Message>
+  <Features>
+    <Feature>
+      <Id>AutoPausePatch</Id>
+      <Enabled>true</Enabled>
+      <Reason></Reason>
+    </Feature>
+    <Feature>
+      <Id>SpawnBlockerPatch</Id>
+      <Enabled>true</Enabled>
+      <Reason></Reason>
+    </Feature>
+  </Features>
+</PatcherConfig>
