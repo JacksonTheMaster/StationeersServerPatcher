@@ -205,7 +205,7 @@ namespace StationeersServerPatcher.Patches
                             var networkBaseType = AccessTools.TypeByName("NetworkBase");
                             var isPausedProperty = AccessTools.Property(networkBaseType, "IsPaused");
                             isPausedProperty?.SetValue(null, true);
-                            StationeersServerPatcher.LogInfo("Set NetworkBase.IsPaused = true to sync with WorldManager.IsGamePaused.");
+                            //StationeersServerPatcher.LogInfo("Set NetworkBase.IsPaused = true to sync with WorldManager.IsGamePaused.");
                         }
                     }
                 }

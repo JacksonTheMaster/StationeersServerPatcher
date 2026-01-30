@@ -56,7 +56,7 @@ namespace StationeersServerPatcher
 
             try
             {
-                StationeersServerPatcher.LogInfo($"Fetching remote config from: {url}");
+                //StationeersServerPatcher.LogInfo($"Fetching remote config from: {url}");
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
@@ -71,7 +71,7 @@ namespace StationeersServerPatcher
                     ParseRemoteConfig(xml);
                 }
 
-                StationeersServerPatcher.LogInfo("Remote config fetched successfully.");
+                //StationeersServerPatcher.LogInfo("Remote config fetched successfully.");
             }
             catch (WebException ex)
             {
@@ -99,10 +99,6 @@ namespace StationeersServerPatcher
                 if (messageNode != null)
                 {
                     _remoteMessage = messageNode.InnerText;
-                    if (!string.IsNullOrEmpty(_remoteMessage))
-                    {
-                        StationeersServerPatcher.LogInfo($"Remote message: {_remoteMessage}");
-                    }
                 }
 
                 // Parse features
@@ -136,7 +132,7 @@ namespace StationeersServerPatcher
                     }
                 }
 
-                StationeersServerPatcher.LogInfo($"Loaded {_remoteFeatures.Count} feature configuration(s) from remote.");
+                StationeersServerPatcher.LogInfo($"Loaded {_remoteFeatures.Count} feature configuration(s) from remote killswitch.");
             }
             catch (Exception ex)
             {

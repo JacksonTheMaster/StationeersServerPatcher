@@ -13,7 +13,7 @@ namespace StationeersServerPatcher
     public static class PluginConfig
     {
         public const string PluginVersion = "1.2.0";
-        private const string DefaultRemoteConfigUrl = "https://raw.githubusercontent.com/JacksonTheMaster/StationeersServerPatcher/main/patcher-config.xml";
+        private const string DefaultRemoteConfigUrl = "https://raw.githubusercontent.com/JacksonTheMaster/StationeersServerPatcher/refs/heads/main/patcher-config.xml";
 
         public static ConfigEntry<bool> EnableAutoPausePatch { get; private set; }
         public static ConfigEntry<bool> EnableSpawnBlockerPatch { get; private set; }

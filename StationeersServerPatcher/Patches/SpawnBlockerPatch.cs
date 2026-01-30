@@ -50,7 +50,7 @@ namespace StationeersServerPatcher.Patches
             // Only allow in Creative mode
             if (WorldManager.Instance.GameMode != GameMode.Creative)
             {
-                StationeersServerPatcher.LogToServerChatAsync("Spawn using thing spawn blocked: Server not in Creative mode");
+                StationeersServerPatcher.LogToServerChatAsync("[ServerPatcher] Spawn using thing spawn blocked: Server not in Creative mode");
                 return false; // Skip original method
             }
             return true; // Allow original to run
