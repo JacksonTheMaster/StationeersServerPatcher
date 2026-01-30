@@ -2,72 +2,100 @@
 
 <img width="1235" height="566" alt="image" src="https://github.com/user-attachments/assets/eb5f2650-49cf-4c1a-a31c-2a08bc9d3466" />
 
-
-A simple BepInEx/Harmony patch for Stationeers dedicated servers that currently fixes the auto-pause functionality on server startup. More fixes may be added if needed.
+A comprehensive BepInEx/Harmony patch suite for Stationeers dedicated servers that fixes auto-pause functionality, prevents unauthorized spawning, and provides extensive configuration options.
 
 ## What This Does
 
 This is a **server-side only** mod. Clients don't need BepInEx, any mods, or special configuration — the server remains fully "vanilla" compatible for all players.
-Log output is slightly verbose, but I figured it's best to know and see each step.
 
-## The Problem
+## Features
 
-When starting a Stationeers dedicated server with `AutoPauseServer` enabled, the server does **not** enter the auto-pause state on initial startup.
+### 🔄 Auto-Pause Fix
+Fixes the auto-pause functionality on server startup when `AutoPauseServer` is enabled.
 
-The game's built-in auto-pause logic only triggers when the client count transitions from `>0` to `0` (i.e., when the last player disconnects via `OnClientRemoved()`). On a fresh server start with zero clients, this transition never occurs — so the server remains running and unpaused indefinitely.
+**The Problem**: When starting a Stationeers dedicated server with `AutoPauseServer` enabled, the server does **not** enter the auto-pause state on initial startup.
 
-### Why This Matters
+**The Fix**: Triggers the existing auto-pause logic at server startup, ensuring proper pause behavior with zero clients.
 
-Without this fix:
-- The game loop continues running with no players connected
-- In-game resources are consumed (stored energy, oxygen, etc.)
-- Machines and systems operate unnecessarily
+### 🚫 Spawn Blocker
+Prevents players from using "thing spawn" commands unless the server is in Creative mode.
 
-### Expected Behavior
+**Why**: Prevents unauthorized item spawning on survival servers, maintaining game balance and avoiding griefers on public servers.
 
-1. Server starts with 0 clients
-2. After 10 seconds: *"No clients connected. Will save and pause in 10 seconds."*
-3. Auto-save is performed
-4. Game loop pauses (`WorldManager.SetGamePause(true)`)
+### ⚙️ Configuration System
+Full BepInEx configuration support with individual patch toggles and remote killswitch capabilities.
 
-### Actual Behavior (Without This Patch)
-
-1. Server starts
-2. No clients connect → server stays unpaused forever
-3. No auto-save or pause until at least one client connects and then disconnects
-
-## How The Patch Works
-
-This patch hooks into `NetworkServer.CreateNewGameSession()` and triggers the existing auto-pause logic that the game already has — just at the right time:
-
-```csharp
-// Reuses the game's existing auto-pause logic
-if (ClientCount == 0 && AutoPauseServer is enabled)
-{
-    // Trigger AutoSaveOnLastClientLeave() - the same method called when last player leaves
-}
-```
-
-Additional fixes included:
-- **Stops the autosave timer when paused** — prevents unnecessary save cycles while server is idle
-- **Syncs `NetworkBase.IsPaused` with `WorldManager.IsGamePaused`** — fixes a state desync bug
-- **Unpauses when a client connects** — properly resumes the game when a player joins a paused server
+### 🛡️ Remote Killswitch
+Emergency disable system that can remotely disable broken patches for future versions without requiring mod updates.
 
 ## Installation
 
 ### Requirements
 
 - Stationeers Dedicated Server
-- [BepInEx 5.x](https://github.com/BepInEx/BepInEx) or higher
+- [BepInEx 5.x](https://github.com/BepInEx/BepInEx)
 
 ### Steps
 
 1. Install BepInEx on your dedicated server or use [SSUI](https://github.com/SteamServerUI/StationeersServerUI) (comes with BepInEx)
-2. Copy `StationeersServerPatcher.dll` (can be found pre-compiled in the releases) to:
+2. Copy `StationeersServerPatcher.dll` to:
    ```
    [StationeersServerDir]/BepInEx/plugins/StationeersServerPatcher/StationeersServerPatcher.dll
    ```
-3. Start your server — the patch applies automatically
+3. Start your server — patches apply automatically
+
+## Configuration
+
+Configuration is available at `/BepInEx/config/com.jacksonthemaster.StationeersServerPatcher.cfg`:
+
+```ini
+[Patches]
+EnableAutoPausePatch = true
+EnableSpawnBlockerPatch = true
+
+[Remote]
+EnableRemoteKillswitch = true
+RemoteConfigUrl = https://raw.githubusercontent.com/SteamServerUI/StationeersServerUI/main/patcher-config.xml
+```
+
+### Remote Killswitch
+
+The remote killswitch allows emergency disabling of patches via XML configuration. Local settings always take precedence — remote config cannot force-enable locally disabled features.
+
+Example remote config (`patcher-config.xml`):
+```xml
+<PatcherConfig>
+  <Message>Emergency maintenance</Message>
+  <Features>
+    <Feature>
+      <Id>AutoPausePatch</Id>
+      <Enabled>false</Enabled>
+      <Reason>Game update compatibility issue</Reason>
+    </Feature>
+  </Features>
+</PatcherConfig>
+```
+
+## API Usage
+
+The mod exposes a public API for other plugins:
+
+```csharp
+// Execute server commands
+StationeersServerPatcher.RunCommand("say Hello World");
+StationeersServerPatcher.RunCommand("kick PlayerName");
+
+// Async execution
+await StationeersServerPatcher.RunCommandAsync("say Async message");
+
+// Send messages to server chat
+StationeersServerPatcher.LogToServerChat("Server message");
+await StationeersServerPatcher.LogToServerChatAsync("Async server message");
+
+// Check configuration
+bool autoPauseEnabled = PluginConfig.IsAutoPausePatchEnabled;
+bool spawnBlockerEnabled = PluginConfig.IsSpawnBlockerPatchEnabled;
+```
 
 ## Building
 
@@ -79,6 +107,19 @@ This project uses .NET Framework 4.7.2 and can be built easily in the devcontain
 | `build-release` | Build (Release) |
 | `publish` | Publish to `/ship` directory |
 | `clean` | Clean build artifacts |
+
+## Project Structure
+
+```
+StationeersServerPatcher/
+├── StationeersServerPatcher.cs    # Main plugin class
+├── PluginConfig.cs                # Configuration management
+├── RemoteConfig.cs                # Remote killswitch
+├── ServerPauseHelper.cs           # Pause state utilities
+└── Patches/
+    ├── AutoPausePatches.cs        # Auto-pause fixes
+    └── SpawnBlockerPatch.cs       # Spawn blocking
+```
 
 ## Credits
 
