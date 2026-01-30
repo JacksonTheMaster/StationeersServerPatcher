@@ -1,0 +1,8 @@
+/build/*
+/ship/*
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
