@@ -1,5 +1,8 @@
 # StationeersServerPatcher
 
+<img width="1235" height="566" alt="image" src="https://github.com/user-attachments/assets/eb5f2650-49cf-4c1a-a31c-2a08bc9d3466" />
+
+
 A simple BepInEx/Harmony patch for Stationeers dedicated servers that currently fixes the auto-pause functionality on server startup. More fixes may be added if needed.
 
 ## What This Does
