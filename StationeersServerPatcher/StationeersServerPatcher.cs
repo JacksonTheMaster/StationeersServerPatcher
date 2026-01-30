@@ -17,7 +17,7 @@ namespace StationeersServerPatcher
     {
         private const string PluginGUID = "com.jacksonthemaster.StationeersServerPatcher";
         private const string PluginName = "StationeersServerPatcher";
-        private const string PluginVersion = "1.2.0";
+        private const string PluginVersion = "2.0.0";
         private const string LogPrefix = "[StationeersServerPatcher] ";
 
         private Harmony harmony;
