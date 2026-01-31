@@ -254,13 +254,14 @@ Let's work backwards from the real numbers:
 - 324 vertices × 90 bytes = **~29KB per mesh**
 - 435MB ÷ 10 minutes = **~43.5 MB/minute** of leaked memory during active mining
 
-This is the statistics for MkII mining drill LMB hold for about a sec
-[StationeersServerPatcher] [TerrainMemoryLeak] === Patch Statistics ===
-[StationeersServerPatcher] [TerrainMemoryLeak] Meshes Destroyed: 90
-[StationeersServerPatcher] [TerrainMemoryLeak] Vertices Freed: 47502
-[StationeersServerPatcher] [TerrainMemoryLeak] Estimated Memory Freed: 4.08 MB
-[StationeersServerPatcher] [TerrainMemoryLeak] ApplyMesh Calls: 135
-[StationeersServerPatcher] [TerrainMemoryLeak] SetMesh Calls: 45
+This is the statistics for MkII mining drill LMB hold for about a sec:
+
+- [StationeersServerPatcher] [TerrainMemoryLeak] === Patch Statistics ===
+- [StationeersServerPatcher] [TerrainMemoryLeak] Meshes Destroyed: 90
+- [StationeersServerPatcher] [TerrainMemoryLeak] Vertices Freed: 47502
+- [StationeersServerPatcher] [TerrainMemoryLeak] Estimated Memory Freed: 4.08 MB
+- [StationeersServerPatcher] [TerrainMemoryLeak] ApplyMesh Calls: 135
+- [StationeersServerPatcher] [TerrainMemoryLeak] SetMesh Calls: 45
 
 **Extrapolating to server runtime:**
 
