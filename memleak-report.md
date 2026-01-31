@@ -12,6 +12,16 @@
 Unity `Mesh` objects are native resources. You're creating new ones when terrain changes but never calling `Destroy()` on the old ones. They pile up in memory until the game dies. Every single mining action leaks dozens of meshes across all LOD levels.
  
 ---
+
+
+100mb of leaked memory without the patch:
+![20260131175406_1](https://github.com/user-attachments/assets/52d46a4f-ca27-46c5-9195-32bd2dcf74ac)
+
+
+400 kilobytes after I made this hole, which is likely not a leak but just the general cost to keep the changed terrain loaded. 
+![20260131165752_1](https://github.com/user-attachments/assets/f463c447-33ca-41ca-9572-743b6040db55)
+
+---
  
 ## How I found this
  
