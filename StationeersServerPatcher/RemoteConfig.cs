@@ -29,6 +29,7 @@ namespace StationeersServerPatcher
         // Feature IDs - must match exactly in the remote XML
         public const string FEATURE_AUTO_PAUSE = "AutoPausePatch";
         public const string FEATURE_SPAWN_BLOCKER = "SpawnBlockerPatch";
+        public const string FEATURE_TERRAIN_MEMORY_LEAK = "TerrainMemoryLeakPatch";
 
         private static Dictionary<string, FeatureConfig> _remoteFeatures = new Dictionary<string, FeatureConfig>();
         private static bool _initialized = false;

@@ -12,11 +12,12 @@ namespace StationeersServerPatcher
     /// </summary>
     public static class PluginConfig
     {
-        public const string PluginVersion = "2.0.0";
+        public const string PluginVersion = "2.1.0";
         private const string DefaultRemoteConfigUrl = "https://raw.githubusercontent.com/JacksonTheMaster/StationeersServerPatcher/refs/heads/main/patcher-config.xml";
 
         public static ConfigEntry<bool> EnableAutoPausePatch { get; private set; }
         public static ConfigEntry<bool> EnableSpawnBlockerPatch { get; private set; }
+        public static ConfigEntry<bool> EnableTerrainMemoryLeakPatch { get; private set; }
         public static ConfigEntry<bool> EnableRemoteKillswitch { get; private set; }
         public static ConfigEntry<string> RemoteConfigUrl { get; private set; }
 
@@ -51,6 +52,13 @@ namespace StationeersServerPatcher
                 true,
                 "Enable the spawn blocker patch that prevents item spawning via SpawnDynamicThingMaxStackMessage unless the server is in Creative mode."
             );
+
+            EnableTerrainMemoryLeakPatch = config.Bind(
+                "Patches",
+                "EnableTerrainMemoryLeakPatch",
+                true,
+                "Enable the terrain memory leak patch that properly destroys Unity Mesh objects when terrain is modified (mining). Fixes severe memory leaks during prolonged server sessions with terrain activity."
+            );
         }
 
         /// <summary>
@@ -64,5 +72,11 @@ namespace StationeersServerPatcher
         /// </summary>
         public static bool IsSpawnBlockerPatchEnabled => 
             RemoteConfig.IsFeatureEnabled(RemoteConfig.FEATURE_SPAWN_BLOCKER, EnableSpawnBlockerPatch.Value);
+
+        /// <summary>
+        /// Checks if the TerrainMemoryLeak patch should be enabled (considering both local and remote config)
+        /// </summary>
+        public static bool IsTerrainMemoryLeakPatchEnabled => 
+            RemoteConfig.IsFeatureEnabled(RemoteConfig.FEATURE_TERRAIN_MEMORY_LEAK, EnableTerrainMemoryLeakPatch.Value);
     }
 }
