@@ -12,5 +12,10 @@
       <Enabled>true</Enabled>
       <Reason></Reason>
     </Feature>
+    <Feature>
+      <Id>TerrainMemoryLeakPatch</Id>
+      <Enabled>true</Enabled>
+      <Reason></Reason>
+    </Feature>
   </Features>
 </PatcherConfig>
