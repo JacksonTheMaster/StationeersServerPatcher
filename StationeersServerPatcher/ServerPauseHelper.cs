@@ -8,9 +8,7 @@ using HarmonyLib;
 
 namespace StationeersServerPatcher
 {
-    /// <summary>
     /// Helper class for managing pause state and autosave timer via reflection
-    /// </summary>
     public static class ServerPauseHelper
     {
         private static System.Reflection.MethodInfo _pauseEventMethod;
@@ -29,10 +27,8 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
         /// Calls NetworkBase.PauseEvent(pause) to properly set both NetworkBase.IsPaused 
         /// and WorldManager.IsGamePaused, and notify clients.
-        /// </summary>
         public static void SetPauseState(bool pause)
         {
             try
@@ -56,9 +52,7 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
         /// Gets the current value of NetworkBase.IsPaused
-        /// </summary>
         public static bool IsPaused
         {
             get
@@ -76,9 +70,8 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
         /// Checks if AutoPauseServer setting is enabled
-        /// </summary>
+        
         public static bool IsAutoPauseEnabled
         {
             get
@@ -100,9 +93,9 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
+
         /// Checks if running in batch/dedicated server mode
-        /// </summary>
+
         public static bool IsBatchMode
         {
             get
@@ -120,9 +113,9 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
+
         /// Gets the client count from NetworkBase.Clients
-        /// </summary>
+
         public static int GetClientCount()
         {
             try
@@ -140,9 +133,9 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
+
         /// Gets the StationAutoSave timer via reflection
-        /// </summary>
+        
         public static System.Timers.Timer GetAutoSaveTimer()
         {
             if (_timerCache != null)
@@ -160,9 +153,9 @@ namespace StationeersServerPatcher
             return _timerCache;
         }
 
-        /// <summary>
+
         /// Stops the autosave timer
-        /// </summary>
+
         public static void StopAutoSaveTimer()
         {
             var timer = GetAutoSaveTimer();
@@ -173,9 +166,9 @@ namespace StationeersServerPatcher
             }
         }
 
-        /// <summary>
+
         /// Restarts the autosave timer using the game's ResetAutoSave method
-        /// </summary>
+
         public static void RestartAutoSaveTimer()
         {
             try
