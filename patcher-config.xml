@@ -4,7 +4,7 @@
   <Features>
     <Feature>
       <Id>AutoPausePatch</Id>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Reason></Reason>
     </Feature>
     <Feature>
@@ -14,7 +14,7 @@
     </Feature>
     <Feature>
       <Id>TerrainMemoryLeakPatch</Id>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Reason></Reason>
     </Feature>
   </Features>
