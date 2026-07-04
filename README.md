@@ -8,14 +8,7 @@ A comprehensive BepInEx/Harmony patch suite for Stationeers dedicated servers th
 
 This is a **server-side only** mod. Clients don't need BepInEx, any mods, or special configuration — the server remains fully "vanilla" compatible for all players.
 
-## Features
-
-### 🔄 Auto-Pause Fix
-Fixes the auto-pause functionality on server startup when `AutoPauseServer` is enabled.
-
-**The Problem**: When starting a Stationeers dedicated server with `AutoPauseServer` enabled, the server does **not** enter the auto-pause state on initial startup.
-
-**The Fix**: Triggers the existing auto-pause logic at server startup, ensuring proper pause behavior with zero clients.
+## Features currently enabled:
 
 ### 🚫 Spawn Blocker
 Prevents players from using "thing spawn" commands unless the server is in Creative mode.
